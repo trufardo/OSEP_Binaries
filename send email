@@ -1,0 +1,33 @@
+## Send emails
+
+Requiere:
+* EVIL@DOMAIN.com
+* VICTIM_MAIL
+* MAIL_IP
+* EVIL_IP
+
+```bash
+$ sendemail -f EVIL@DOMAIN.com -t VICTIM_MAIL -s MAIL_IP -u "Urgent - Help" -m "Please click in this link for request help http://"EVIL_IP"/help.hta"
+```
+Alternativa con swaks:
+```bash
+$ swaks --body 'TEXTO_MENSAJE' --add-header "MIME-Version: 1.0" --add-header "Content-Type: text/html" --header "Subject: ASUNTO" -t VICTIM_MAIL -f EVIL@DOMAIN.com --server MAIL_IP
+```
+
+ej:
+```bash
+$ swaks -to Will@tricky.com -from techsupport@bestcomputers.com -server 192.168.96.159 --header "Subject: Test mail 2" --body "This is a test mail" --attach /home/kali/Desktop/iexplore.lnk
+```
+
+Mandar varios emails
+requiere:
+* emails.txt con los destinatarios
+* IP_MAIL
+* EVIL_IP
+* DOMAIN
+* USER
+* ASUNTO
+
+```bash=
+for i in `cat emails.txt`; do swaks --body 'Please click here http://EVIL_IP/evil.hta' --add- header "MIME-Version: 1.0" --add-header "Content-Type: text/html" --header "Subject: ASUNTO" -t $i -f USER@DOMAIN.com --server IP_MAIL; done
+```
